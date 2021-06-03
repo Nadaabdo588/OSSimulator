@@ -5,7 +5,7 @@ import java.util.*;
 
 
 public class OSProject {
-    static HashMap<String, String> memo;
+    static HashMap<String, String> memo=new HashMap<>();
 
     public static void parseProcess(String program) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(program));
@@ -53,7 +53,7 @@ public class OSProject {
     }
 
     public static void assign(String x, String y) {
-
+        memo.put(x,y);
     }
 
     public static void writeFile(String a, String b) {
