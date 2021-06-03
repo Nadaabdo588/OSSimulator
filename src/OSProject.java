@@ -10,14 +10,13 @@ public class OSProject {
     public static void parseProcess(String program) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(program));
         Scanner sc = new Scanner(System.in);
-        // write a and b
         while (br.ready()) {
             String line[] = br.readLine().split(" ");
             if (line.length == 2) {
                 if (line[0].equals("print")) {
                     print(line[1]);
                 } else if (line[0].equals("readFile")) {
-                    String data = readFile(line[0]);
+                    String data = readFile(line[1]);
                 }
             } else if (line.length == 3) {
                 if (line[0].equals("add")) {
