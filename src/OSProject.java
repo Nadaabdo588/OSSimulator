@@ -9,7 +9,6 @@ public class OSProject {
 
     public static void parseProcess(String program) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(program));
-        Scanner sc = new Scanner(System.in);
         while (br.ready()) {
             String line[] = br.readLine().split(" ");
             if (line.length == 2) {
@@ -24,7 +23,7 @@ public class OSProject {
                 } else if (line[0].equals("assign")) {
                     String passed;
                     if (line[2].equals("input")) {
-                        passed = sc.next();
+                        passed = readAnInput();
                     } else {
                         passed = line[2];
                     }
@@ -51,23 +50,33 @@ public class OSProject {
     public static void add(String x, String y) {
 
     }
-
     public static void assign(String x, String y) {
-        memo.put(x,y);
+        String data = readFromMemo(y);
+        if(data==null)
+            writeToMemo(x,y);
+        else
+            writeToMemo(x,data);
     }
-
     public static void writeFile(String a, String b) {
 
     }
-
     public static String readFile(String a) {
         return "";
     }
-
-
+    public static String readAnInput() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        return br.readLine();
+    }
+    public static String readFromMemo(String x){
+        return memo.get(x);
+    }
+    public static void writeToMemo(String x,String y){
+        memo.put(x,y);
+    }
     public static void main(String[] args) throws IOException {
         FileReader fr = new FileReader("Program 1");
         BufferedReader br = new BufferedReader(fr);
         System.out.println(br.readLine());
+
     }
 }
