@@ -12,9 +12,10 @@ public class OSProject {
     }
 
     public void parseProcess(String program) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(program));
-        while (br.ready()) {
-            String line[] = br.readLine().split(" ");
+        String file= os.readFile(program);
+        String [] lines=file.split("\n");
+        for(int i=0; i<lines.length; i++) {
+            String line[] = lines[i].split(" ");
             if (line.length == 2) {
                 if (line[0].equals("print")) {
                     os.print(line[1]);
