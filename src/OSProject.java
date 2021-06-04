@@ -63,7 +63,13 @@ public class OSProject {
     }
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException
+    {
+        OSProject tmp = new OSProject();
+        tmp.parseProcess("Program 1");
+        tmp.parseProcess("Program 2");
+        tmp.parseProcess("Program 3");
+
 
 
     }

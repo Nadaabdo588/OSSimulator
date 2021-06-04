@@ -19,14 +19,16 @@ public class OSSimulator {
         memo.put(x,y);
     }
     public void writeFile(String a, String b) throws IOException {
-        PrintWriter pw = new PrintWriter(new FileWriter(a+".txt"));
-        String bVal = readFromMemo(b);
-        pw.print(bVal);
+        String fileName = readFromMemo(a);
+        PrintWriter pw = new PrintWriter(new FileWriter(fileName+".txt"));
+        String data = readFromMemo(b);
+        pw.print(data);
         pw.close();
         pw.flush();
     }
     public String readFile(String a) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(a+".txt"));
+        String fileName = readFromMemo(a);
+        BufferedReader br = new BufferedReader(new FileReader(fileName+".txt"));
         StringBuilder ans = new StringBuilder();
         if(br.ready())ans.append(br.readLine());
         while(br.ready())
