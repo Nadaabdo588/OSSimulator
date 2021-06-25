@@ -3,31 +3,63 @@ import java.io.*;
 import java.util.HashMap;
 
 public class OSSimulator {
-    HashMap<String, String> memo;
+    MemoryWord[] memory;
+    int processID;
 
     public OSSimulator() {
-        memo = new HashMap<>();
+        memory = new MemoryWord[300];
+        processID = -1;
     }
 
     public void print(String x) {
-        System.out.println(memo.getOrDefault(x, x));
+
+        System.out.println(readFromMemo(x));
     }
-    public  String readFromMemo(String x){
-        return memo.getOrDefault(x,x);
+    public Object readFromMemo(String x){
+        for(int i = processID*100-50; i<processID*100;i++)
+        {
+            if(memory[i] == null)
+                break;
+            if(memory[i].getName().equals(x))
+                return memory[i].getValue();
+        }
+        return x;
     }
     public  void writeToMemo(String x,String y){
-        memo.put(x,y);
+        for(int i = processID*100-50; i<processID*100;i++) {
+
+            if (memory[i] == null) {
+                memory[i] = new MemoryWord(x, y);
+                break;
+            }
+            if(memory[i].getName().equals(x))
+            {
+                memory[i].setValue(y);
+                break;
+            }
+        }
     }
     public void writeFile(String a, String b) throws IOException {
-        String fileName = readFromMemo(a);
+        String fileName = (String)readFromMemo(a);
         PrintWriter pw = new PrintWriter(new FileWriter(fileName+".txt"));
-        String data = readFromMemo(b);
+        String data =(String) readFromMemo(b);
         pw.print(data);
         pw.close();
         pw.flush();
     }
+    public String readPrograms(String program) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(program+".txt"));
+        StringBuilder ans = new StringBuilder();
+        if(br.ready())ans.append(br.readLine());
+        while(br.ready())
+        {
+            ans.append("\n");
+            ans.append(br.readLine());
+        }
+        return ans.toString();
+    }
     public String readFile(String a) throws IOException {
-        String fileName = readFromMemo(a);
+        String fileName = (String)readFromMemo(a);
         BufferedReader br = new BufferedReader(new FileReader(fileName+".txt"));
         StringBuilder ans = new StringBuilder();
         if(br.ready())ans.append(br.readLine());
@@ -45,6 +77,10 @@ public class OSSimulator {
 
     public static void main(String[] args) {
 
+        String x = "ad";
+        x.hashCode();
+
+        System.out.println(x.hashCode());
     }
 
 
