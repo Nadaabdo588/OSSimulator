@@ -7,6 +7,7 @@ import java.util.*;
 public class OSProject {
     Queue<Integer> processes;
     OSSimulator os;
+    int [] quanta;
 
     public OSProject() throws IOException {
         os = new OSSimulator();
@@ -46,7 +47,7 @@ public class OSProject {
         }
         System.out.println("ALL Process now are ready to excute!");
         System.out.println("-----------------------------------------------------------------------------");
-
+        quanta= new int [3];
 
 
     }
@@ -74,6 +75,7 @@ public class OSProject {
             if(os.memory[pcRunning]==null)
             {
                 os.memory[(running-1)*100+1].setValue("terminated");
+                System.out.println("Process "+ running+" has been terminated with Quantum(Quanta) of "+ quanta[running-1]);
                 return -1;
             }
             return running;
@@ -84,6 +86,7 @@ public class OSProject {
         if(os.memory[pcRunning]==null)
         {
             os.memory[(running-1)*100+1].setValue("terminated");
+            System.out.println("Process "+ running+" has been terminated with Quantum(Quanta) of "+ quanta[running-1]);
         }
         else
         {
@@ -95,6 +98,10 @@ public class OSProject {
 
     }
 
+    public void incQuanta(int i)
+    {
+        quanta[i]++;
+    }
 
     public void parseProcess(String programName) throws IOException {
         String file= os.readPrograms(programName);
@@ -120,6 +127,7 @@ public class OSProject {
             int pcRunning = (int)os.memory[(running-1)*100 + 2].getValue();
             os.processID = running;
             System.out.println("Process "+running+" has been chosen");
+            incQuanta(running-1);
             System.out.println("Starting PCB of Process "+running+" is");
             printPCB(running);
             for(int i=0;i<2;i++)
@@ -188,7 +196,7 @@ public class OSProject {
     public static void main(String[] args) throws IOException
     {
         OSProject tmp = new OSProject();
-//        tmp.executeProcesses();
+        tmp.executeProcesses();
 
     }
 }
