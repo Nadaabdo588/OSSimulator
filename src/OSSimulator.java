@@ -21,8 +21,13 @@ public class OSSimulator {
             if(memory[i] == null)
                 break;
             if(memory[i].getName().equals(x))
+            {
+                System.out.println("At index "+i+"Memory Word"+memory[i]+" has been read");
                 return memory[i].getValue();
+            }
+
         }
+        System.out.println( x+" has been read from memory although it is not there");
         return x;
     }
     public  void writeToMemo(String x,String y){
@@ -30,10 +35,12 @@ public class OSSimulator {
 
             if (memory[i] == null) {
                 memory[i] = new MemoryWord(x, y);
+                System.out.println("At index i " +"Memory word "+ memory[i]+" has been written");
                 break;
             }
             if(memory[i].getName().equals(x))
             {
+                System.out.println("At index "+i+" Memory word Value has been ovewritten with value "+ y);
                 memory[i].setValue(y);
                 break;
             }

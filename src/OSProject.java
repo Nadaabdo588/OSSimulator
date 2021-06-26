@@ -16,11 +16,47 @@ public class OSProject {
             parseProcess("Program "+i);
             processes.add(i);
         }
+        for(int i=0;i<300;i++)
+        {
+            if(i==0)
+            {
+                System.out.println("Program 1 PCB:");
+            }
+            else if(i==100)
+            {
+                System.out.println("Program 2 PCB:");
+            } else if(i==200)
+            {
+                System.out.println("Program 3 PCB:");
+            }
+            if(i==5)
+            {
+                System.out.println("Program 1 Instructions:");
+            }
+            else if(i==105)
+            {
+                System.out.println("Program 2 Instructions:");
+            } else if(i==205)
+            {
+                System.out.println("Program 3 Instructions:");
+            }
+            if(os.memory[i] != null)
+                System.out.println("At Index "+i+" "+os.memory[i]+" has been Written");
+
+        }
+        System.out.println("ALL Process now are ready to excute!");
+        System.out.println("-----------------------------------------------------------------------------");
 
 
 
     }
-
+    public void printPCB (int i)
+    {
+        for(int j = (i-1)*100;j<((i-1)*100)+5;j++)
+        {
+            System.out.println(os.memory[j]);
+        }
+    }
     public int scheduler(int running)
     {
         if(running== -1)
@@ -83,6 +119,9 @@ public class OSProject {
         {
             int pcRunning = (int)os.memory[(running-1)*100 + 2].getValue();
             os.processID = running;
+            System.out.println("Process "+running+" has been chosen");
+            System.out.println("Starting PCB of Process "+running+" is");
+            printPCB(running);
             for(int i=0;i<2;i++)
             {
                 if(os.memory[pcRunning]== null)
@@ -90,6 +129,8 @@ public class OSProject {
                 execute((String)os.memory[pcRunning++].getValue());
             }
             os.memory[(running-1)*100 + 2].setValue(pcRunning);
+            System.out.println("Ending PCB of Process "+running+" is");
+            printPCB(running);
         }
     }
 
@@ -147,17 +188,7 @@ public class OSProject {
     public static void main(String[] args) throws IOException
     {
         OSProject tmp = new OSProject();
-        tmp.executeProcesses();
-//        for(int i=0;i<300;i++)
-//        {
-//            if(tmp.os.memory[i] != null)
-//                System.out.println(tmp.os.memory[i]);
-//        }
-
-
-
-
-
+//        tmp.executeProcesses();
 
     }
 }
