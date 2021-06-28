@@ -14,6 +14,8 @@ public class OSSimulator {
     public void print(String x) {
 
         System.out.println(readFromMemo(x));
+        System.out.println("-----------------------------------------------------------");
+
     }
     public Object readFromMemo(String x){
         for(int i = processID*100-50; i<processID*100;i++)
@@ -22,12 +24,15 @@ public class OSSimulator {
                 break;
             if(memory[i].getName().equals(x))
             {
-                System.out.println("At index "+i+"Memory Word"+memory[i]+" has been read");
+                System.out.println("At index "+i+" Memory Word "+memory[i]+" has been read");
+                System.out.println("-----------------------------------------------------------");
                 return memory[i].getValue();
             }
 
         }
         System.out.println( x+" has been read from memory although it is not there");
+        System.out.println("-----------------------------------------------------------");
+
         return x;
     }
     public  void writeToMemo(String x,String y){
@@ -35,12 +40,16 @@ public class OSSimulator {
 
             if (memory[i] == null) {
                 memory[i] = new MemoryWord(x, y);
-                System.out.println("At index i " +"Memory word "+ memory[i]+" has been written");
+                System.out.println("At index i " +" Memory word "+ memory[i]+" has been written");
+                System.out.println("-----------------------------------------------------------");
+
                 break;
             }
             if(memory[i].getName().equals(x))
             {
                 System.out.println("At index "+i+" Memory word Value has been ovewritten with value "+ y);
+                System.out.println("-----------------------------------------------------------");
+
                 memory[i].setValue(y);
                 break;
             }

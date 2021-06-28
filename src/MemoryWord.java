@@ -9,7 +9,7 @@ public class MemoryWord {
 
     public String toString()
     {
-        return "{Memory Word name: "+name+ "," + " Memory Word value: "+value;
+        return "{Memory Word name: "+name+ "," + " Memory Word value: "+value+"}";
 
     }
 

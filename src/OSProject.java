@@ -7,7 +7,7 @@ import java.util.*;
 public class OSProject {
     Queue<Integer> processes;
     OSSimulator os;
-    int [] quanta;
+    ArrayList [] quanta;
 
     public OSProject() throws IOException {
         os = new OSSimulator();
@@ -47,8 +47,7 @@ public class OSProject {
         }
         System.out.println("ALL Process now are ready to excute!");
         System.out.println("-----------------------------------------------------------------------------");
-        quanta= new int [3];
-
+        quanta= new ArrayList[3];
 
     }
     public void printPCB (int i)
@@ -75,7 +74,9 @@ public class OSProject {
             if(os.memory[pcRunning]==null)
             {
                 os.memory[(running-1)*100+1].setValue("terminated");
-                System.out.println("Process "+ running+" has been terminated with Quantum(Quanta) of "+ quanta[running-1]);
+                System.out.println("Process "+ running+" has been terminated with Quantum(Quanta) of size "+ quanta[running-1].size()+" Distributed respectively "+quanta[running-1]);
+                System.out.println("-----------------------------------------------------------");
+
                 return -1;
             }
             return running;
@@ -86,7 +87,9 @@ public class OSProject {
         if(os.memory[pcRunning]==null)
         {
             os.memory[(running-1)*100+1].setValue("terminated");
-            System.out.println("Process "+ running+" has been terminated with Quantum(Quanta) of "+ quanta[running-1]);
+            System.out.println("Process "+ running+" has been terminated with Quantum(Quanta) of size "+ quanta[running-1].size()+" Distributed respectively "+quanta[running-1]);
+            System.out.println("-----------------------------------------------------------");
+
         }
         else
         {
@@ -96,11 +99,6 @@ public class OSProject {
         os.memory[(nxt-1)*100+1].setValue("running");
         return nxt;
 
-    }
-
-    public void incQuanta(int i)
-    {
-        quanta[i]++;
     }
 
     public void parseProcess(String programName) throws IOException {
@@ -127,18 +125,25 @@ public class OSProject {
             int pcRunning = (int)os.memory[(running-1)*100 + 2].getValue();
             os.processID = running;
             System.out.println("Process "+running+" has been chosen");
-            incQuanta(running-1);
             System.out.println("Starting PCB of Process "+running+" is");
             printPCB(running);
-            for(int i=0;i<2;i++)
+            System.out.println("-----------------------------------------------------------");
+
+            int i;
+            for(i=0;i<2;i++)
             {
                 if(os.memory[pcRunning]== null)
                     break;
                 execute((String)os.memory[pcRunning++].getValue());
             }
+            if(quanta[running-1]==null)
+               quanta[running-1]=new ArrayList<Integer>();
+            quanta[running-1].add(i);
             os.memory[(running-1)*100 + 2].setValue(pcRunning);
             System.out.println("Ending PCB of Process "+running+" is");
             printPCB(running);
+            System.out.println("-----------------------------------------------------------");
+
         }
     }
 
